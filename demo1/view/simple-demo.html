@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 客户端就会与服务器进行连接
+        var ws = new WebSocket('ws://localhost:30002')
+        // 实例对象的onmessage属性，用于指定收到服务器数据后的回调函数
+        ws.onmessage = function(msg){
+            console.log('msg', 1111)
+        }
+        // 实例对象的onopen属性，用于指定连接成功后的回调函数
+        ws.onopen = function(evt) { 
+            console.log("Connection open ...");
+            // 实例对象的send()方法用于向服务器发送数据
+            ws.send('hellow--websokectServer im websocketClient')
+        }
+    </script>
+</body>
+</html>
