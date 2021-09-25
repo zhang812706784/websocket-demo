@@ -17,6 +17,7 @@
         }
         // 实例对象的onopen属性，用于指定连接成功后的回调函数
         ws.onopen = function(evt) { 
+            
             console.log("Connection open ...");
             // 实例对象的send()方法用于向服务器发送数据
             ws.send('hellow--websokectServer im websocketClient')
