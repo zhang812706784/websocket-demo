@@ -8,7 +8,9 @@
     <title>Document</title>
 </head>
 <body>
+    欢迎光临
     <script>
+        document.cookie = 'name=xx'
         // 客户端就会与服务器进行连接
         var ws = new WebSocket('ws://localhost:30002')
         // 实例对象的onmessage属性，用于指定收到服务器数据后的回调函数

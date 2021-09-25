@@ -12,8 +12,16 @@ websocket案例(H5-websocket)
 
 demo1:
     简单的websocket创建及后端交互
+    npm run s-dev  启动demo1的后台服务
+    
+    http://localhost:30002/simple-demo 访问前端页面
+
+    
 demo2:
-    简易聊天室
+    简易聊天室 
+    demo2中用到了一个 live server的插件（小服务器），用vscode就可以安装 
+
+    npm run dev  启动demo2的后台服务
 
 参考文档：
 https://zhuanlan.zhihu.com/p/149680021

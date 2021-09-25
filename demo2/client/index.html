@@ -1,0 +1,153 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-13 15:42:13
+ * @LastEditTime: 2021-09-18 17:07:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \mutipageClient\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        .top{
+            height: 400px;
+            width: 800px;
+            display: flex;
+        }
+        .left{
+            width: 80%;
+            height: 100%;
+            background: greenyellow;
+        }
+
+        .left>div{
+            padding: 10px;
+        }
+
+        .right{
+            width: 20%;
+            height: 100%;
+            background: lightgoldenrodyellow;
+            text-align: center;
+        }
+        .right>div{
+            padding: 10px 0;
+        }
+
+        .bottom{
+            width: 800px;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div id="message-list">
+        {{list}}
+        <div class="top">
+            <div class="left">
+                <div v-for="(item,key) in list" :key="item.id">
+                    <span>
+                        {{item.user}}
+                    </span>
+                    <span>
+                        {{item.data}}
+                    </span>
+                </div>
+            </div>
+            <div class="right">
+                <div v-for="item in rightList" :key="item.id">
+                    {{item.user}}
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <el-input v-model="input" placeholder="请输入内容"></el-input>
+            <el-button type="success" @click="submitClick">提交</el-button>
+        </div>
+    </div>
+    
+    <script>
+        new Vue({
+            el:'#message-list',
+            data: {
+                input: 'xxx',
+                ws: null,
+                list: [],
+                rightList: []
+            },
+            methods: {
+                submitClick(){
+                    let name = decodeURI(location.search).match(/name=(.+)/)[1]
+                    this.ws.send(JSON.stringify({
+                        type: 'notFirst',
+                        name: name,
+                        value: this.input
+                    }))
+                },
+                wsfun(){
+                    let that = this
+                    this.ws = new WebSocket('ws://localhost:3000/test')
+                    // 当通过 WebSocket 收到数据时触发
+                    this.ws.onmessage = function(msg){
+                        console.log(msg)
+                        console.log('onmessage', msg.data)
+                        debugger;
+                        let data = JSON.parse(msg.data)
+                        if(data.type == 'first'){
+                            that.rightList.push(data) 
+                        }else{
+                            that.list.push(data)
+                        }
+                    }
+                    // 当一个 WebSocket 连接成功时触发
+                    this.ws.onopen = function(){
+                        let name = decodeURI(location.search).match(/name=(.+)/)[1]
+                        console.log('和后端连接成功')
+                        let fisrtEntry = {
+                            type: 'first',
+                            name: name,
+                            value: `${name}上线`
+                        }
+                        that.ws.send(JSON.stringify(fisrtEntry))
+                    }
+                    // 当一个 WebSocket 连接被关闭时触发
+                    this.ws.onclose = function(msg){
+                        console.log('onclose', msg)
+                    }
+                },
+                sendUserInfo(){
+                    var that = this
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.withCredentials = true;
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // 开始建立一个websocket
+                            that.wsfun()
+                        }
+                    };
+                    
+                    let name = decodeURI(location.search).match(/name=(.+)/)[1]
+                    xhttp.open("GET", `http://localhost:3000/user`, true);
+                    xhttp.setRequestHeader('username', name)
+                    xhttp.send();
+                }
+            },
+            mounted () {
+                this.sendUserInfo()
+            }
+        })
+
+        
+    </script>
+</body>
+</html>

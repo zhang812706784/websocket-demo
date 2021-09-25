@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "s-dev": "node --inspect ./demo1/server/app.js DEBUG=koa-views",
-    "dev": "node --inspect ./demo2/app.js"
+    "dev": "node --inspect ./demo2/server/app.js"
   },
   "author": "",
   "license": "ISC",
