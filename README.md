@@ -23,6 +23,11 @@ demo2:
 
     npm run dev  启动demo2的后台服务
 
+    后台文件说明：
+    websocketServer.js  --》 websocket相关
+    router.js --》 接口相关
+    app.js --》程序主入口
+
 参考文档：
 https://zhuanlan.zhihu.com/p/149680021
 https://juejin.cn/post/6844903544978407431

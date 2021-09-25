@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        .container{
+            display: flex;
+            background: lightgreen;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        .container>div{
+            width: 400px;
+        }
+
+        .title{
+            height: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .row-one{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <div class="title">
+                简易聊天室
+            </div>
+            <div class="login-con">
+                <div class="row-one">
+                    用户姓名：
+                    <el-input
+                        style="width: 70%;"
+                        placeholder="请输入内容"
+                        v-model="nameVal"
+                        clearable>
+                    </el-input>
+                </div>
+                <div style="display: flex; justify-content: center;margin-top: 10px;">
+                    <el-button type="primary" @click="submitClick">登录</el-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // demo2/client/index.html?name=xx
+        new Vue({
+            el: '.container',
+            data: {
+                nameVal: ''
+            },
+            methods: {
+                submitClick(){
+                    this.sendUserInfo()
+                },
+                sendUserInfo(){
+                    var that = this
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.withCredentials = true;
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            location.href = "chat.html"
+                        }
+                    };
+                    
+                    // let name = decodeURI(location.search).match(/name=(.+)/)[1]
+                    xhttp.open("GET", `http://localhost:3000/login`, true);
+                    xhttp.setRequestHeader('username', this.nameVal)
+                    xhttp.send();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

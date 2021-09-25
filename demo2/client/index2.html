@@ -125,25 +125,9 @@
                         console.log('onclose', msg)
                     }
                 },
-                sendUserInfo(){
-                    var that = this
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.withCredentials = true;
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            // 开始建立一个websocket
-                            that.wsfun()
-                        }
-                    };
-                    
-                    let name = decodeURI(location.search).match(/name=(.+)/)[1]
-                    xhttp.open("GET", `http://localhost:3000/user`, true);
-                    xhttp.setRequestHeader('username', name)
-                    xhttp.send();
-                }
+                
             },
             mounted () {
-                this.sendUserInfo()
             }
         })
 
