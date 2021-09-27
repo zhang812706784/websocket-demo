@@ -22,7 +22,7 @@ const httpServer = app.listen(3000,function(){
 
 // 解决跨域问题 统一入口 优先解决跨域问题
 app.use(async (ctx, next)=> {
-    // ctx.set('Access-Control-Allow-Origin', 'http://localhost:5500');
+    // ctx.set('Access-Control-Allow-Origin', 'localhost');
     ctx.set('Access-Control-Allow-Origin', ctx.request.header.origin);
     ctx.set('Access-Control-Allow-Credentials', 'true');
     ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , username');

@@ -80,10 +80,11 @@
                 sendUserInfo(){
                     var that = this
                     var xhttp = new XMLHttpRequest();
-                    xhttp.withCredentials = true;
+                    xhttp.withCredentials = true; // 解决跨域不带cookie问题
                     xhttp.onreadystatechange = function() {
+                       
                         if (this.readyState == 4 && this.status == 200) {
-                            location.href = "chat.html"
+                           location.href = "chat.html"
                         }
                     };
                     

@@ -96,7 +96,6 @@
                     this.ws.onmessage = function(result){
                         console.log(result)
                         // console.log('onmessage', result.data)
-                        debugger;
                         let tempResult = JSON.parse(result.data)
                         if(tempResult.type == 'login'){
                             alert(tempResult.data)

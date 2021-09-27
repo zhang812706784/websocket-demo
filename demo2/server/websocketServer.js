@@ -18,7 +18,6 @@ function createWebSocketFun(httpServer){
     // 如果有WebSocket请求接入，wss对象可以响应connection事件来处理这个WebSocket
     wss.on('connection', function(ws, request){
         // ws： WebSocket
-        debugger;
         console.log(global.userId)
         console.log(global.userMap)
         let userOnLine = []
@@ -47,6 +46,8 @@ function createWebSocketFun(httpServer){
     wss.broadcast = function (data) {
         console.log(wss.clients)
         wss.clients.forEach(function (client) {
+            console.log('client')
+            console.log(client)
             client.send(data);
         });
     };

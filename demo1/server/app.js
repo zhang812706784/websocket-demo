@@ -25,7 +25,6 @@ app.use(views(path.join(__dirname + '/../view'),
         extension: 'html'
     }
 )).use(router.routes());
-
 // 前端websocket发送连接请求 走这里
 wss.on('connection', function (ws) {
     // ws websocket实例

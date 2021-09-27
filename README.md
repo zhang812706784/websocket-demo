@@ -28,6 +28,8 @@ demo2:
     router.js --》 接口相关
     app.js --》程序主入口
 
+    http://localhost:5500/demo2/client/login.html
+
 参考文档：
 https://zhuanlan.zhihu.com/p/149680021
 https://juejin.cn/post/6844903544978407431
